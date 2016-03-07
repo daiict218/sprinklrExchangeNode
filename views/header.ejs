@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="stylesheets/header.css">
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id"
+      content="472834415640-o419551t0kpu4jfl6h0pj7v64frcfsmi.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<!-- <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.0.min.js"></script> -->
+
+<div class="topbar" id="header">
+    <div class="topbar__topbarholder clearfix">
+        <div class="topbar__topbarholder__logoholder">
+            <a href="/" class="topbar__topbarholder__logoholder__logofont">Sprinklr Exchange</a>
+        </div>
+        <div class="topbar__topbarholder__rightcorner">
+            <div class="topbar__topbarholder__rightcorner__profile">
+                <img class="topbar__topbarholder__rightcorner__profile__profileimage" id="image_url">
+            </div>
+
+            <div class="g-signin2" id="signin" data-onsuccess="onSignIn" data-theme="dark" data-width="150"
+                 data-height="23"></div>
+            <div class="signout" id="siou">
+                <button class="signout__button">
+                    <a href="#" onclick="signOut()">Signout</a>
+                </button>
+            </div>
+            <div class="topbar__topbarholder__rightcorner__searchcontainer">
+
+                <form class="searchform" id="search" action="searchresult.html">
+                    <i class="fa fa-search" id="searchicon"></i>
+                    <input id="searchAll" class="searchform__searchbox" maxlength="240" placeholder="Search Q&A">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="header__container" id="header">
+    <div class="header__container__contentholder clearfix">
+        <div class="header__logo">
+            <a href="/"><img class="header__logo__image" src="images/sprinklrlogo.jpg"></a>
+        </div>
+        <div class="header__tabs">
+            <ul class="header__tabs__ul">
+                <li class="header__tabs__options"><a href="/" class="header__tabs__options__link"><i class="fa fa-list"></i> <span>Questions</span></a></li>
+                <li class="header__tabs__options"><a href="/tags" class="header__tabs__options__link"><i class="fa fa-tags"></i> <span>Tags</span></a></li>
+                <li class="header__tabs__options"><a href="/ask" class="header__tabs__options__link"><i class="fa fa-question-circle"></i> <span>Ask Question</span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
