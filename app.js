@@ -4,12 +4,20 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var mongoose = require('mongoose');
+var passport = require('passport');
+var flash = require('connect-flash');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var configDB = require('./config/database.js');
+mongoose.connect(configDB.url);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
 
 var app = express();
-
+app.use(logger('dev'));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -20,6 +28,15 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({secret: 'anystringoftext',
+                saveUninitialized: true,
+                resave: true}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+require('./config/passport.js')(passport);
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/css', express.static(__dirname + '/public'));
 app.use('/', routes);
