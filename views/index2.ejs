@@ -24,39 +24,39 @@
 <div class="container clearfix footerfix">
 	<div class="content">
 		<div class="mainbar">
-			<form id="form" class="form" method="post">
+			<form id="form" class="form" method="post" action="/questions">
 				<div id="title" class="form__title">
 					<div id="question_title">Title</div>
-					<input id="input_element1" class="input_element" type="text" placeholder="What's your programming question? Be specific.">
+					<input id="input_element1" class="input_element" type="text" placeholder="What's your programming question? Be specific." name="title">
 				</div>
-			</form>
-			<div class="text-area">
-				<div id="wmd-button-bar"></div>
-				<br/>
-				<textarea id="wmd-input"></textarea>
-				<div id="wmd-preview"></div>
-				<br/>
-			</div>
-			<div class="inputtags form__tags">
-				<select id="options" multiple="multiple">
-
-				</select>
-
-				<div class="inputtags__element">
-
+				<div class="text-area">
+					<div id="wmd-button-bar"></div>
+					<br/>
+					<textarea id="wmd-input" name="text"></textarea>
+					<div id="wmd-preview"></div>
+					<br/>
 				</div>
-				<div class="inputtags__errors">
+				<div class="inputtags form__tags">
+					<select id="options" multiple="multiple" name="tags">
 
-				</div>
-				<br>
-				<div id="inputtags__post">
-					<button class="btn" id="btn-submit">
-						Post Your Question
-					</button>
-					<button class="btn" id="btn-discard">
-						Discard
-					</button>
-				</div>
+					</select>
+
+					<div class="inputtags__element">
+
+					</div>
+					<div class="inputtags__errors">
+
+					</div>
+					<br>
+					<div id="inputtags__post">
+						<button class="btn" id="btn-submit">
+							Post Your Question
+						</button>
+						<button class="btn" id="btn-discard">
+							Discard
+						</button>
+					</div>
+				</form>
 			</div>
 		</div>
 		<div class="sidebar">

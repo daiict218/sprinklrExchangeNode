@@ -78,18 +78,25 @@ $(function(){
         init:function(){
             var button = $('#btn-submit');
             var dom = $('.mainbar');
+            var questionObject = {};
             button.click(function(e){
+                e.preventDefault();
                 var title = dom.find("#input_element1").val();
                 var text = dom.find("#wmd-preview").html();
                 var errors = dom.find('.inputtags__errors');
                 var elements = dom.find('.inputtags__element');
                 var message = [];
                 var selected = $("#options option:selected");
-                
+                questionObject.title = title;
+                questionObject.text = text;
+
                 selected.each(function (i) {
                     message[i] = $(this).text();
-
                 });
+                questionObject.tags = [];
+                for (var i = message.length - 1; i >= 0; i--) {
+                    questionObject.tags[i] = message[i];
+                };
                 if(title === ""){
                     errors.html("Empty title");
                 }
@@ -103,7 +110,7 @@ $(function(){
                     octopus.addNewQuestion(title,text,message);
                     window.location.href="index.html";
                 }   
-                e.preventDefault();
+                console.log(questionObject);
             });
             $("#btn-discard").click(function(e){
                 $('#wmd-input').val('');
@@ -114,7 +121,7 @@ $(function(){
            var index = -1;
            var htmlStr = tags.reduce(function(a,b){
                 index++;
-                return a + "<option value="+(index+1)+">"+b+"</option>"; 
+                return a + "<option value="+(index+1)+" name="+b+">"+b+"</option>"; 
            },'');
            $("#options").html(htmlStr);
         }
