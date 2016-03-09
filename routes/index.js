@@ -1,18 +1,34 @@
 var express = require('express');
 var passport = require('passport');
 var router = express.Router();
+var mongoose = require('mongoose');
 var User = require('../models/user.js');
+var Question = require('../config/questions.js');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'sprinklrExchange' });
 });
 
+router.get('/questionanswer', function(req, res, next) {
+  res.render('questionanswer', { title: 'sprinklrExchange' });
+});
+
 router.get('/ask', function(req, res, next) {
-  res.render('index2', { title: 'sprinklrExchange' });
+    if(isLoggedIn(req,res,next)){
+        res.render('index2', { title: 'sprinklrExchange' });
+    }
+    else{
+        res.redirect('/');
+    }
 });
 
 router.get('/profile', function(req, res, next) {
-  res.render('profile.ejs', { user: req.user });
+    if(isLoggedIn(req,res,next)){
+        res.render('profile.ejs', { user: req.user });
+    }
+    else{
+        res.redirect('/');
+    }
 });
 
 router.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
@@ -29,16 +45,26 @@ router.get('/logout', function(req,res){
     res.redirect('/');
 });
 
-function isLoggedIn(req, res, next) {
-
-    // if user is authenticated in the session, carry on
-    if (req.isAuthenticated()){
-        return next();
-    }
-
-    // console.log("hello world");
-    // if they aren't redirect them to the home page
+router.post('/questions', function(req,res){
+    var question = req.body;
+    var sid = req.seesionID;
+    var user = req.user;
+    question.author = user.google.name;
+    console.log(question);
+    Question.createQuestion(question);
     res.redirect('/');
+});
+// router.get('/users', function(req,res){
+//     mongoose.model('user',userSchema).find(function(err,users){
+//         res.send(users);
+//     });
+// });
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()){
+        return true;
+    }
+    return false;
 }
 
 module.exports = router;

@@ -12,11 +12,15 @@ var flash = require('connect-flash');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var configDB = require('./config/database.js');
+var autoIncrement = require('mongoose-auto-increment');
+
 mongoose.connect(configDB.url);
 var db = mongoose.connection;
+autoIncrement.initialize(db);
 db.on('error', console.error.bind(console, 'connection error:'));
 
 var app = express();
+app.use(bodyParser.json());
 app.use(logger('dev'));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,7 +39,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 require('./config/passport.js')(passport);
-
+require('./config/questions.js');
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/css', express.static(__dirname + '/public'));
